@@ -54,12 +54,17 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
 			}
 		}
 		std::sort (newPop.begin(), newPop.end(), Chromosome::fitness)
-		for(auto itr newPop.begin(); itr != popSize.end(); ++itr){
+		
+		for(auto itr newPop.begin(); itr != population.end(); ++itr){
 			population.push_back(newPop[itr]);
 		}
+		
 		if(population[0].fitness == 0){
 			done = true;
+			std::cout << "After " << iterations << " iterations." << std::endl;
+			return population[0];
 		}
+		
 		std::cout << "iteration: " << iterations << std::endl;
 		std::cout << population[0] << std::endl;
 	}
@@ -75,5 +80,5 @@ int main(int argc, char **argv)
     Chromosome answer = runGA(target, popSize, mr, cr);
 
     std::cout << "Solution found: " << answer << std::endl;
-	std::cout << "After " << iterations << " iterations." << std::endl;
+	
 }
