@@ -28,6 +28,41 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
     // for the next iteration
     // when you find a chromosome of fitness 0, you have finished and
     // you should return it
+	
+	bool done = false;
+	int iterations = 0;
+	std::vector<Chromosome> population;
+	int size = target.size();
+	
+	for(int i = 0; i != popSize; ++i){
+		population.push_back(randomChromosome(size));
+	}
+	
+	while(!done){
+		++iterations;
+		
+		std::vector<Chromosome> newPop;
+		for(int i = 0; i < popSize * 2; ++i){
+			int pick = rand() % popSize;
+			if(rand() % 1 <= mr){
+				newPop.push_back(population[pick].mutate());
+			}else if(rand() % 1 <= cr){
+				int pick2 = rand() % popSize;
+				newPop.push_back(population[pick].crossover(population[pick2]));
+			}else{
+				newPop.push_back(population[pick]);
+			}
+		}
+		std::sort (newPop.begin(), newPop.end(), Chromosome::fitness)
+		for(auto itr newPop.begin(); itr != popSize.end(); ++itr){
+			population.push_back(newPop[itr]);
+		}
+		if(population[0].fitness == 0){
+			done = true;
+		}
+		std::cout << "iteration: " << iterations << std::endl;
+		std::cout << population[0] << std::endl;
+	}
 }
 
 int main(int argc, char **argv)
@@ -40,4 +75,5 @@ int main(int argc, char **argv)
     Chromosome answer = runGA(target, popSize, mr, cr);
 
     std::cout << "Solution found: " << answer << std::endl;
+	std::cout << "After " << iterations << " iterations." << std::endl;
 }
