@@ -48,9 +48,11 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
 		std::vector<Chromosome> newPop;
 		for(int i = 0; i < popSize * 2; ++i){
 			int pick = rand() % popSize;
-			if(rand() % 1 <= mr){
+			double choice = (rand() / (RAND_MAX));
+			// std::cout << choice << std::endl;
+			if(choice <= mr){
 				newPop.push_back(population[pick].mutate());
-			}else if(rand() % 1 <= cr){
+			}else if(choice <= cr){
 				int pick2 = rand() % popSize;
 				newPop.push_back(population[pick].crossover(population[pick2]));
 			}else{
@@ -62,6 +64,7 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
 				
 		std::sort (newPop.begin(), newPop.end(), comp);
 		
+		population.clear();
 		for(int i = 0; i < popSize; ++i){
 			population.push_back(newPop[i]);
 		}
@@ -156,11 +159,15 @@ int main(int argc, char **argv)
     int popSize = atoi(argv[2]);
     double mr = atof(argv[3]);
     double cr = atof(argv[4]);
-    // Chromosome answer = runGA(target, popSize, mr, cr);
+	
+	std::cout << "Target: \"" << target << "\"" << std::endl;
+	std::cout << "Popultation Size: " << popSize;
+	std::cout << "   Mutation Rate: " << mr << "\tCrossover Rate: " << cr << std::endl;
+    Chromosome answer = runGA(target, popSize, mr, cr);
 	// testSort(target, popSize);
 	// testMutate(target, popSize);
-	testCrossover(target, popSize);
+	// testCrossover(target, popSize);
 
-    // std::cout << "Solution found: " << answer << std::endl;
+    std::cout << "Solution found: " << answer << std::endl;
 	
 }
