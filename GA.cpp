@@ -53,21 +53,25 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
 				newPop.push_back(population[pick]);
 			}
 		}
-		std::sort (newPop.begin(), newPop.end(), Chromosome::fitness)
+		auto comp = [target] (Chromosome c1, Chromosome c2){
+				return c1.fitness(target) < c2.fitness(target); };
+				
+		std::sort (newPop.begin(), newPop.end(), comp);
 		
-		for(auto itr newPop.begin(); itr != population.end(); ++itr){
-			population.push_back(newPop[itr]);
+		for(int i = 0; i < popSize; ++i){
+			population.push_back(newPop[i]);
 		}
 		
-		if(population[0].fitness == 0){
+		std::cout << "Iteration " << iterations << std::endl;
+		std::cout << "Best: \"" << population[0] << "\"" << std::endl;
+		
+		if(population[0].fitness(target) == 0){
 			done = true;
-			std::cout << "After " << iterations << " iterations." << std::endl;
-			return population[0];
+			std::cout << "Answer found after " << iterations << " iterations." << std::endl;
 		}
-		
-		std::cout << "iteration: " << iterations << std::endl;
-		std::cout << population[0] << std::endl;
 	}
+	
+	return population[0];
 }
 
 int main(int argc, char **argv)
