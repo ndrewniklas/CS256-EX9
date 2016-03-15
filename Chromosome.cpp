@@ -14,11 +14,7 @@ std::string Chromosome::getData() const{
 
 Chromosome Chromosome::mutate() const{
     // implement mutation here
-
-    // your mutate function should randomly choose
-    // a character to modify then randomly choose
-    // to either increment or decrement it
-    // make sure to keep in range of lower-case letters!
+	
 	int pos = rand() % data.size();
 	std::string result = data;
 	if(rand() % 2){
@@ -36,12 +32,6 @@ Chromosome Chromosome::mutate() const{
 
 Chromosome Chromosome::crossover(const Chromosome& c) const{
     // implement crossover here
-
-    // your crossover function should randomly choose
-    // an index in the range of the chromosomes
-    // then take the first part (up to the index) from *this
-    // and the last part (from index to end) from c and
-    // concatenate those together then return the result
 	
 	int pos = rand() % data.size();
 	
