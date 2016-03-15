@@ -102,6 +102,53 @@ void testSort(std::string target, int popSize){
 	}
 }
 
+void testMutate(std::string target, int popSize){
+	std::vector<Chromosome> population;
+	int size = target.size();
+	
+	for(int i = 0; i != popSize; ++i){
+		population.push_back(randomChromosome(size));
+	}
+	
+	std::cout << "Random Popultation" << std::endl;
+	for(Chromosome& c : population){
+		std::cout << c << std::endl;
+	}
+	
+	std::vector<Chromosome> newPop;
+	for(Chromosome& c : population){
+		newPop.push_back(c.mutate());
+	}
+	std::cout << "\nMutated Popultation" << std::endl;
+	for(Chromosome& c : newPop){
+		std::cout << c << std::endl;
+	}
+}
+
+void testCrossover(std::string target, int popSize){
+	std::vector<Chromosome> population;
+	int size = target.size();
+	
+	for(int i = 0; i != popSize; ++i){
+		population.push_back(randomChromosome(size));
+	}
+	
+	std::cout << "Random Popultation" << std::endl;
+	for(Chromosome& c : population){
+		std::cout << c << std::endl;
+	}
+	
+	std::vector<Chromosome> newPop;
+	for(Chromosome& c : population){
+		int pick = rand() % popSize;
+		newPop.push_back(c.crossover(population[pick]));
+	}
+	std::cout << "\nCrossover Popultation" << std::endl;
+	for(Chromosome& c : newPop){
+		std::cout << c << std::endl;
+	}
+}
+
 int main(int argc, char **argv)
 {
     srand(time(0));
@@ -110,7 +157,9 @@ int main(int argc, char **argv)
     double mr = atof(argv[3]);
     double cr = atof(argv[4]);
     // Chromosome answer = runGA(target, popSize, mr, cr);
-	testSort(target, popSize);
+	// testSort(target, popSize);
+	// testMutate(target, popSize);
+	testCrossover(target, popSize);
 
     // std::cout << "Solution found: " << answer << std::endl;
 	
