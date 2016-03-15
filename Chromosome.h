@@ -1,3 +1,7 @@
+// Andrew Niklas
+// Exercise 9
+// Completed 3/14/16
+
 #ifndef CHROMOSOME_H
 #define CHROMOSOME_H
 

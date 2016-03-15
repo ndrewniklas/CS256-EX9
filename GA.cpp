@@ -1,3 +1,7 @@
+// Andrew Niklas
+// Exercise 9
+// Completed 3/14/16
+
 #include "Chromosome.h"
 
 Chromosome randomChromosome(int size)
@@ -74,6 +78,30 @@ Chromosome runGA(std::string target, int popSize, double mr, double cr)
 	return population[0];
 }
 
+void testSort(std::string target, int popSize){
+	std::vector<Chromosome> population;
+	int size = target.size();
+	
+	for(int i = 0; i != popSize; ++i){
+		population.push_back(randomChromosome(size));
+	}
+	
+	std::cout << "Random Popultation" << std::endl;
+	for(Chromosome& c : population){
+		std::cout << c << std::endl;
+	}
+	
+	auto comp = [target] (Chromosome c1, Chromosome c2){
+				return c1.fitness(target) < c2.fitness(target); };
+				
+	std::sort (population.begin(), population.end(), comp);
+	
+	std::cout << "\nSorted Popultation" << std::endl;
+	for(Chromosome& c : population){
+		std::cout << c << std::endl;
+	}
+}
+
 int main(int argc, char **argv)
 {
     srand(time(0));
@@ -81,8 +109,9 @@ int main(int argc, char **argv)
     int popSize = atoi(argv[2]);
     double mr = atof(argv[3]);
     double cr = atof(argv[4]);
-    Chromosome answer = runGA(target, popSize, mr, cr);
+    // Chromosome answer = runGA(target, popSize, mr, cr);
+	testSort(target, popSize);
 
-    std::cout << "Solution found: " << answer << std::endl;
+    // std::cout << "Solution found: " << answer << std::endl;
 	
 }

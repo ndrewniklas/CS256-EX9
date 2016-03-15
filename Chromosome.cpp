@@ -1,16 +1,18 @@
+// Andrew Niklas
+// Exercise 9
+// Completed 3/14/16
+
 #include "Chromosome.h"
 
 Chromosome::Chromosome(std::string d) : data(d)
 {
 }
 
-std::string Chromosome::getData() const
-{
+std::string Chromosome::getData() const{
     return data;
 }
 
-Chromosome Chromosome::mutate() const
-{
+Chromosome Chromosome::mutate() const{
     // implement mutation here
 
     // your mutate function should randomly choose
@@ -32,8 +34,7 @@ Chromosome Chromosome::mutate() const
 	return Chromosome(result);
 }
 
-Chromosome Chromosome::crossover(const Chromosome& c) const
-{
+Chromosome Chromosome::crossover(const Chromosome& c) const{
     // implement crossover here
 
     // your crossover function should randomly choose
@@ -44,7 +45,7 @@ Chromosome Chromosome::crossover(const Chromosome& c) const
 	
 	int pos = rand() % data.size();
 	
-	std::string subFirst = this->data.substr(0, pos - 1);
+	std::string subFirst = data.substr(0, pos);
 	std::string subSecond = c.data.substr(pos, data.size());
 	
 	std::string result = subFirst;
@@ -53,8 +54,7 @@ Chromosome Chromosome::crossover(const Chromosome& c) const
 	return Chromosome(result);
 }
 
-int Chromosome::fitness(const std::string& target) const
-{
+int Chromosome::fitness(const std::string& target) const{
     // computes fitness by sum of differences of each character
     // smaller is better (0 is perfect)
 
@@ -71,8 +71,7 @@ int Chromosome::fitness(const std::string& target) const
     return diff;
 }
 
-std::ostream& operator<<(std::ostream& os, const Chromosome& c)
-{
+std::ostream& operator<<(std::ostream& os, const Chromosome& c){
     os << c.getData();
     return os;
 }
